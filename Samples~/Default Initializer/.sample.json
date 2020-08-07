@@ -1,0 +1,5 @@
+{
+	"displayName":"Default Initializer",
+	"description": "A simple class to quickly enable the Build Manager on your project.",
+	"createSeparatePackage": false
+}

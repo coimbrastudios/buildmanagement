@@ -4,22 +4,33 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using UnityEditor;
-using UnityEditor.Build.Reporting;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
 namespace Coimbra.BuildManagement.Editor
 {
     /// <summary>
-    /// Use this class to <see cref="PreprocessBuild"/> configured in the Project Settings menu and to <see cref="Finish"/> the project after the build process.
+    /// Use this class to <see cref="ApplySettings"/> configured in the Project Settings menu and to <see cref="CleanUp"/> the project after the build process.
     /// </summary>
     public static class BuildManager
     {
         private const string UtcNowFormat = "yyyy.MMdd.HHmm";
+        private const string CreatedStreamingAssetsKey = "Coimbra.BuildManagement.Editor.BuildManager.CreatedStreamingAssetsKey";
+        private const string LastBuildNameKey = "Coimbra.BuildManagement.Editor.BuildManager.LastBuildName";
+        private const string LastFullVersionKey = "Coimbra.BuildManagement.Editor.BuildManager.LastFullVersion";
 
-        private static readonly string CreatedStreamingAssetsKey = $"{nameof(Coimbra)}.{nameof(BuildManagement)}.{nameof(BuildMetadata)}.{nameof(CreatedStreamingAssetsKey)}";
+        internal static string LastBuildName
+        {
+            get => SessionState.GetString(LastBuildNameKey, null) ?? BuildName;
+            private set => SessionState.SetString(LastBuildNameKey, value);
+        }
+        internal static string LastFullVersion
+        {
+            get => SessionState.GetString(LastFullVersionKey, null) ?? PlayerSettings.bundleVersion;
+            private set => SessionState.SetString(LastFullVersionKey, value);
+        }
 
-        internal static string BuildName
+        private static string BuildName
         {
             get
             {
@@ -35,6 +46,7 @@ namespace Coimbra.BuildManagement.Editor
         /// <summary>
         /// Apply settings configured in the Project Settings menu.
         /// </summary>
+        [PublicAPI]
         public static void ApplySettings()
         {
             DateTime rawUtcNow = DateTime.UtcNow;
@@ -87,45 +99,42 @@ namespace Coimbra.BuildManagement.Editor
         /// <summary>
         /// Clean data created temporarily during the build process and generate the standardized output.
         /// </summary>
-        public static void Finish(BuildReport buildReport, bool generateStandardizedOutput, bool showStandardizedOutput = false)
+        [PublicAPI]
+        public static void CleanUp()
         {
             BuildMetadata buildMetadata = BuildMetadata.GetInstance();
-            StandardizedBuildCreator standardizedBuildCreator = null;
 
-            if (buildReport != null && generateStandardizedOutput)
+            if (buildMetadata == null)
             {
-                standardizedBuildCreator = new StandardizedBuildCreator(buildReport.summary, buildMetadata);
-                standardizedBuildCreator.Schedule();
+                return;
             }
 
-            if (buildMetadata != null)
-            {
-                try
-                {
-                    File.Delete(buildMetadata.AbsoluteFilePath);
-                    File.Delete($"{buildMetadata.AbsoluteFilePath}.meta");
+            LastBuildName = buildMetadata.BuildName;
+            LastFullVersion = buildMetadata.FullVersion;
 
-                    if (SessionState.GetBool(CreatedStreamingAssetsKey, false))
+            try
+            {
+                File.Delete(buildMetadata.AbsoluteFilePath);
+                File.Delete($"{buildMetadata.AbsoluteFilePath}.meta");
+
+                if (SessionState.GetBool(CreatedStreamingAssetsKey, false))
+                {
+                    string streamingAssetsPath = Application.streamingAssetsPath;
+
+                    try
                     {
-                        string streamingAssetsPath = Application.streamingAssetsPath;
-
-                        try
-                        {
-                            Directory.Delete(streamingAssetsPath);
-                            File.Delete($"{streamingAssetsPath}.meta");
-                        }
-                        catch { }
-
-                        SessionState.EraseBool(CreatedStreamingAssetsKey);
+                        Directory.Delete(streamingAssetsPath);
+                        File.Delete($"{streamingAssetsPath}.meta");
                     }
-                }
-                catch (Exception e)
-                {
-                    Debug.LogWarning(e.Message);
+                    catch { }
+
+                    SessionState.EraseBool(CreatedStreamingAssetsKey);
                 }
             }
-
-            standardizedBuildCreator?.Complete(showStandardizedOutput);
+            catch (Exception e)
+            {
+                Debug.LogWarning(e.Message);
+            }
         }
 
         [Conditional("UNITY_STANDALONE")]

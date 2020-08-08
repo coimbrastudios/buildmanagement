@@ -36,12 +36,6 @@ This version of Build Management is compatible with the following versions of th
 
 * 2019.4 or later
 
-## Known limitations
-
-Build Management version 1.0.0 includes the following known limitations:
-
-* When generating a standardized build output the editor may hang for a while
-
 ## Document revision history
 
 |Date|Comment|

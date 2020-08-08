@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System;
 using System.IO;
 using UnityEngine;
@@ -9,54 +10,38 @@ namespace Coimbra.BuildManagement
     /// <summary>
     /// Holds custom metadata injected during the build.
     /// </summary>
-    [Preserve] [Serializable]
+    [Preserve]
+    [Serializable]
     public sealed class BuildMetadata
     {
-        internal static readonly string FileName = $"{nameof(Coimbra)}.{nameof(BuildManagement)}.{nameof(BuildMetadata)}.json";
+        internal const string FileName = "Coimbra.BuildManagement.BuildMetadata.json";
 
         internal readonly string AbsoluteFilePath = Path.Combine(Application.streamingAssetsPath, FileName);
         internal readonly string AssetFilePath = $"Assets/StreamingAssets/{FileName}";
 
-#pragma warning disable 0649
-        [SerializeField] private string m_BuildName;
-        [SerializeField] private string m_FullVersion;
-#pragma warning restore 0649
+        [SerializeField] private string _buildName;
+        [SerializeField] private string _fullVersion;
 
         private BuildMetadata() { }
 
         /// <summary>
         /// The build name as chosen in the project settings.
         /// </summary>
-        public string BuildName => m_BuildName;
+        [NotNull]
+        [PublicAPI]
+        public string BuildName => _buildName ?? string.Empty;
         /// <summary>
         /// The unique version of the build in the format "{bundleVersion}-{buildTime}".
         /// </summary>
-        public string FullVersion => m_FullVersion;
-
-#if !UNITY_EDITOR
-#if UNITY_2019_1_OR_NEWER
-        [Preserve, RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
-#else
-        [Preserve, RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-#endif
-#endif
-        private static void InjectMetadata()
-        {
-            BuildMetadata instance = GetInstance();
-
-            if (instance == null)
-            {
-                return;
-            }
-
-            CrashReportHandler.SetUserMetadata(nameof(BuildName), instance.BuildName);
-            CrashReportHandler.SetUserMetadata(nameof(FullVersion), instance.FullVersion);
-        }
+        [NotNull]
+        [PublicAPI]
+        public string FullVersion => _fullVersion ?? string.Empty;
 
         /// <summary>
         /// Use this to access the custom build metadata.
         /// </summary>
         /// <returns>null if the custom build metadata could not be found.</returns>
+        [PublicAPI]
         public static BuildMetadata GetInstance()
         {
             string filePath = $"{Application.streamingAssetsPath}/{FileName}";
@@ -67,7 +52,6 @@ namespace Coimbra.BuildManagement
             }
 
             BuildMetadata instance = new BuildMetadata();
-
             JsonUtility.FromJsonOverwrite(File.ReadAllText(filePath), instance);
 
             return instance;
@@ -77,13 +61,33 @@ namespace Coimbra.BuildManagement
         {
             BuildMetadata instance = new BuildMetadata
             {
-                m_BuildName = buildName,
-                m_FullVersion = fullVersion,
+                _buildName = buildName,
+                _fullVersion = fullVersion,
             };
 
             File.WriteAllText(instance.AbsoluteFilePath, JsonUtility.ToJson(instance));
 
             return instance;
+        }
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
+        private static void InjectMetadata()
+        {
+#if UNITY_EDITOR
+            if (Application.isEditor)
+            {
+                return;
+            }
+#endif
+            BuildMetadata instance = GetInstance();
+
+            if (instance == null)
+            {
+                return;
+            }
+
+            CrashReportHandler.SetUserMetadata(nameof(BuildName), instance.BuildName);
+            CrashReportHandler.SetUserMetadata(nameof(FullVersion), instance.FullVersion);
         }
     }
 }

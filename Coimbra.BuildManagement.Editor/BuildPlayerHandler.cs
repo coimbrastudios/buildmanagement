@@ -11,7 +11,6 @@ namespace Coimbra.BuildManagement.Editor
     /// <summary>
     /// Use <see cref="BuildPlayer"/> method in <see cref="BuildPlayerWindow.RegisterBuildPlayerHandler"/> to integrate with the standard <see cref="BuildPipeline"/>
     /// </summary>
-    [PublicAPI]
     public static class BuildPlayerHandler
     {
         /// <summary>
@@ -76,14 +75,13 @@ namespace Coimbra.BuildManagement.Editor
             BuildManager.ApplyStandaloneScriptingBackend(buildPlayerOptions.target);
             BuildReport buildReport = BuildPipeline.BuildPlayer(buildPlayerOptions);
 
-            if (buildReport == null || !ValidateBuildResult(buildReport.summary))
+            if (buildReport == null || !ValidateBuildResult(buildReport.summary) || ignoreStandardizedOutput)
             {
-                BuildManager.Finish(buildReport, false);
-
                 return;
             }
 
-            BuildManager.Finish(buildReport, !ignoreStandardizedOutput, !autoRunPlayer && openStandardizedOutput);
+            StandardizedBuildCreator standardizedBuildCreator = new StandardizedBuildCreator(buildReport.summary, !autoRunPlayer && openStandardizedOutput);
+            standardizedBuildCreator.Execute();
         }
 
         private static bool ValidateBuildResult(BuildSummary buildSummary)

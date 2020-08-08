@@ -8,7 +8,8 @@ namespace Coimbra.BuildManagement
     /// <summary>
     /// Use this to quick access the <a href="https://docs.unity3d.com/Manual/UnityCloudBuildManifest.html">UnityCloudBuildManifest</a> json.
     /// </summary>
-    [Preserve] [Serializable]
+    [Preserve]
+    [Serializable]
     public sealed class UnityCloudBuildManifest
     {
         [SerializeField] private string buildNumber = default;
@@ -39,6 +40,7 @@ namespace Coimbra.BuildManagement
         /// </summary>
         /// <returns>null if the UnityCloudBuildManifest is not found.</returns>
         [CanBeNull]
+        [PublicAPI]
         public static UnityCloudBuildManifest GetInstance()
         {
             TextAsset textAsset = Resources.Load<TextAsset>("UnityCloudBuildManifest.json");

@@ -57,7 +57,7 @@ namespace Coimbra.BuildManagement.Editor.Local
                 {
                     _settings = new Settings(new[]
                     {
-                        new NewUserSettingsRepository(BuildManagerUtility.PackageName, "Settings"),
+                        new UserSettingsFolderRepository(BuildManagerUtility.PackageName, "Settings"),
                     });
                 }
 

@@ -8,7 +8,7 @@ using UnityEngine.Assertions;
 namespace Coimbra.BuildManagement.Editor.Local
 {
     [Serializable]
-    internal sealed class NewUserSettingsRepository : ISettingsRepository
+    internal sealed class UserSettingsFolderRepository : ISettingsRepository
     {
         private const bool PrettyPrintJson = true;
         private const string SettingsDirectory = "UserSettings/Packages";
@@ -20,7 +20,7 @@ namespace Coimbra.BuildManagement.Editor.Local
         private bool _initialized;
         private string _cachedJson;
 
-        public NewUserSettingsRepository(string package, string name)
+        internal UserSettingsFolderRepository(string package, string name)
         {
             _name = name;
             _path = GetSettingsPath(package, name);

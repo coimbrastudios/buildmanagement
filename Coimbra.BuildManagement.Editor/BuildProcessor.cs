@@ -1,16 +1,20 @@
-﻿using System.Diagnostics;
-using UnityEditor.Build;
+﻿using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 
 namespace Coimbra.BuildManagement.Editor
 {
-    internal sealed class BuildPreprocessor : IPreprocessBuildWithReport
+    internal sealed class BuildProcessor : IPreprocessBuildWithReport, IPostprocessBuildWithReport
     {
         int IOrderedCallback.callbackOrder => 0;
 
         void IPreprocessBuildWithReport.OnPreprocessBuild(BuildReport report)
         {
             BuildManager.ApplySettings();
+        }
+
+        void IPostprocessBuildWithReport.OnPostprocessBuild(BuildReport report)
+        {
+            BuildManager.CleanUp();
         }
     }
 }

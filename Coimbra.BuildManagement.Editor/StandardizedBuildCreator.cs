@@ -13,6 +13,7 @@ namespace Coimbra.BuildManagement.Editor
     {
         private const string IgnoredFolderSuffix = "_BackUpThisFolder_ButDontShipItWithYourGame";
 
+        private readonly bool _showFolder;
         private readonly string _buildName;
         private readonly string _buildVersion;
         private readonly string _originalOutputPath;
@@ -20,16 +21,15 @@ namespace Coimbra.BuildManagement.Editor
         private readonly string _standardOutputFolderPath;
         private readonly BuildTarget _buildTarget;
 
-        private Task _task;
-
-        internal StandardizedBuildCreator(BuildSummary buildSummary, BuildMetadata buildMetadata)
+        internal StandardizedBuildCreator(BuildSummary buildSummary, bool showFolder)
         {
+            _showFolder = showFolder;
             _buildTarget = buildSummary.platform;
             _originalOutputPath = buildSummary.outputPath;
             _productName = PlayerSettings.productName;
-            _buildVersion = $"v{buildMetadata?.FullVersion ?? PlayerSettings.bundleVersion}";
+            _buildVersion = $"v{BuildManager.LastFullVersion}";
             _standardOutputFolderPath = $"{LocalSettingsProvider.StandardizedBuildOutputPath}";
-            _buildName = buildMetadata?.BuildName ?? BuildManager.BuildName;
+            _buildName = BuildManager.LastBuildName;
 
             if (LocalSettingsProvider.GroupByBuildName)
             {
@@ -44,69 +44,53 @@ namespace Coimbra.BuildManagement.Editor
             _standardOutputFolderPath = $"{_standardOutputFolderPath}/{_buildName} ({_buildTarget}) {_buildVersion}";
         }
 
-        internal void Schedule()
+        internal void Execute()
         {
-            void action()
+            switch (_buildTarget)
             {
-                switch (_buildTarget)
+                case BuildTarget.Android:
                 {
-                    case BuildTarget.Android:
-                    {
-                        string newOutputPath = $"{_standardOutputFolderPath}/{_buildName} {_buildVersion}";
-                        CopyAndroidFilesAsync(_originalOutputPath, newOutputPath, _productName);
+                    string newOutputPath = $"{_standardOutputFolderPath}/{_buildName} {_buildVersion}";
+                    CopyAndroidFilesAsync(_originalOutputPath, newOutputPath, _productName);
 
-                        break;
-                    }
+                    break;
+                }
 
-                    case BuildTarget.StandaloneWindows:
-                    case BuildTarget.StandaloneWindows64:
-                    case BuildTarget.StandaloneLinux64:
-                    {
-                        CopyAllFilesAsync(_originalOutputPath, _standardOutputFolderPath, _buildName);
+                case BuildTarget.StandaloneWindows:
+                case BuildTarget.StandaloneWindows64:
+                case BuildTarget.StandaloneLinux64:
+                {
+                    CopyAllFilesAsync(_originalOutputPath, _standardOutputFolderPath, _buildName);
 
-                        break;
-                    }
+                    break;
+                }
 
-                    case BuildTarget.StandaloneOSX:
-                    {
-                        string newOutputPath = $"{_standardOutputFolderPath}/{_buildName}.app";
-                        CopyAllFilesAsync(_originalOutputPath, newOutputPath);
+                case BuildTarget.StandaloneOSX:
+                {
+                    string newOutputPath = $"{_standardOutputFolderPath}/{_buildName}.app";
+                    CopyAllFilesAsync(_originalOutputPath, newOutputPath);
 
-                        break;
-                    }
+                    break;
+                }
 
-                    case BuildTarget.iOS:
-                    case BuildTarget.tvOS:
-                    {
-                        CopyAllFilesAsync(_originalOutputPath, _standardOutputFolderPath);
+                case BuildTarget.iOS:
+                case BuildTarget.tvOS:
+                {
+                    CopyAllFilesAsync(_originalOutputPath, _standardOutputFolderPath);
 
-                        break;
-                    }
+                    break;
+                }
 
-                    case BuildTarget.WebGL:
-                    {
-                        string newOutputPath = $"{_standardOutputFolderPath}/WebGL";
-                        CopyAllFilesAsync(_originalOutputPath, newOutputPath);
+                case BuildTarget.WebGL:
+                {
+                    string newOutputPath = $"{_standardOutputFolderPath}/WebGL";
+                    CopyAllFilesAsync(_originalOutputPath, newOutputPath);
 
-                        break;
-                    }
+                    break;
                 }
             }
 
-            _task = Task.Run(action);
-        }
-
-        internal void Complete(bool show)
-        {
-            if (_task == null)
-            {
-                return;
-            }
-
-            _task.Wait();
-            _task = null;
-
-            if (show)
+            if (_showFolder)
             {
                 Process.Start(_standardOutputFolderPath);
             }

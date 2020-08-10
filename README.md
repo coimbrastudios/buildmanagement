@@ -1,5 +1,7 @@
 # Build Management
 
+[![openupm](https://img.shields.io/npm/v/com.coimbrastudios.buildmanagement?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.coimbrastudios.buildmanagement/)
+
 Automatize some common actions when building your application.
 
 ## See also

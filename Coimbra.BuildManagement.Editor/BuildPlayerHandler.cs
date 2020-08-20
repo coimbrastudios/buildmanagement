@@ -1,4 +1,4 @@
-using Coimbra.BuildManagement.Editor.Local;
+using Coimbra.BuildManagement.Local;
 using JetBrains.Annotations;
 using System;
 using System.IO;
@@ -6,7 +6,7 @@ using UnityEditor;
 using UnityEditor.Build.Reporting;
 using Debug = UnityEngine.Debug;
 
-namespace Coimbra.BuildManagement.Editor
+namespace Coimbra.BuildManagement
 {
     /// <summary>
     /// Use <see cref="BuildPlayer"/> method in <see cref="BuildPlayerWindow.RegisterBuildPlayerHandler"/> to integrate with the standard <see cref="BuildPipeline"/>

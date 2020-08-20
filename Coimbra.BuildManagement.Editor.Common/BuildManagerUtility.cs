@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 
-namespace Coimbra.BuildManagement.Editor.Common
+namespace Coimbra.BuildManagement.Common
 {
     internal static class BuildManagerUtility
     {

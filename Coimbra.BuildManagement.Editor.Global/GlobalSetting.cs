@@ -1,6 +1,6 @@
 using UnityEditor.SettingsManagement;
 
-namespace Coimbra.BuildManagement.Editor.Global
+namespace Coimbra.BuildManagement.Global
 {
     internal sealed class GlobalSetting<T> : UserSetting<T>
     {

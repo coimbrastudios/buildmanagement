@@ -1,4 +1,4 @@
-using Coimbra.BuildManagement.Editor.Global;
+using Coimbra.BuildManagement.Global;
 using JetBrains.Annotations;
 using System;
 using System.Diagnostics;
@@ -7,7 +7,7 @@ using UnityEditor;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
-namespace Coimbra.BuildManagement.Editor
+namespace Coimbra.BuildManagement
 {
     /// <summary>
     /// Use this class to <see cref="ApplySettings"/> configured in the Project Settings menu and to <see cref="CleanUp"/> the project after the build process.

@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEditor.SettingsManagement;
 
-namespace Coimbra.BuildManagement.Editor.Local
+namespace Coimbra.BuildManagement.Local
 {
     internal sealed class LocalSetting<T> : UserSetting<T>
     {

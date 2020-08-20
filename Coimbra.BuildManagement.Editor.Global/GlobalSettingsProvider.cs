@@ -1,10 +1,10 @@
-using Coimbra.BuildManagement.Editor.Common;
+using Coimbra.BuildManagement.Common;
 using JetBrains.Annotations;
 using UnityEditor;
 using UnityEditor.SettingsManagement;
 using UnityEngine;
 
-namespace Coimbra.BuildManagement.Editor.Global
+namespace Coimbra.BuildManagement.Global
 {
     internal static class GlobalSettingsProvider
     {

@@ -5,7 +5,7 @@ using UnityEditor.SettingsManagement;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace Coimbra.BuildManagement.Editor.Local
+namespace Coimbra.BuildManagement.Local
 {
     [Serializable]
     internal sealed class UserSettingsFolderRepository : ISettingsRepository

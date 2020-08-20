@@ -1,4 +1,4 @@
-﻿using Coimbra.BuildManagement.Editor;
+﻿using Coimbra.BuildManagement;
 using UnityEditor;
 
 namespace Coimbra.BuildManagement.Samples.Editor.DefaultInitializer

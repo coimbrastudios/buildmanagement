@@ -40,4 +40,4 @@ This version of Build Management is compatible with the following versions of th
 
 |Date|Comment|
 |---|---|
-|2020-08-02|Document created. Matches package version 1.0.0|
+|2020-08-02|Document created. Matches package version 1.0.0 to 1.1.0|

@@ -1,4 +1,4 @@
-using Coimbra.BuildManagement.Editor.Common;
+using Coimbra.BuildManagement.Common;
 using JetBrains.Annotations;
 using System.Diagnostics;
 using System.IO;
@@ -7,7 +7,7 @@ using UnityEditor.SettingsManagement;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace Coimbra.BuildManagement.Editor.Local
+namespace Coimbra.BuildManagement.Local
 {
     internal static class LocalSettingsProvider
     {

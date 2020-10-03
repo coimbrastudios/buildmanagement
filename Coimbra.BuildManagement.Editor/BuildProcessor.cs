@@ -5,16 +5,16 @@ namespace Coimbra.BuildManagement
 {
     internal sealed class BuildProcessor : IPreprocessBuildWithReport, IPostprocessBuildWithReport
     {
-        int IOrderedCallback.callbackOrder => 0;
+        public int callbackOrder => 0;
 
-        void IPreprocessBuildWithReport.OnPreprocessBuild(BuildReport report)
-        {
-            BuildManager.ApplySettings();
-        }
-
-        void IPostprocessBuildWithReport.OnPostprocessBuild(BuildReport report)
+        public void OnPostprocessBuild(BuildReport report)
         {
             BuildManager.CleanUp();
+        }
+
+        public void OnPreprocessBuild(BuildReport report)
+        {
+            BuildManager.ApplySettings();
         }
     }
 }

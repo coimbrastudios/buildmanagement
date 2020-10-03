@@ -5,19 +5,18 @@ using System.Diagnostics;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
-using Debug = UnityEngine.Debug;
 
 namespace Coimbra.BuildManagement
 {
     /// <summary>
-    /// Use this class to <see cref="ApplySettings"/> configured in the Project Settings menu and to <see cref="CleanUp"/> the project after the build process.
+    ///     Use this class to <see cref="ApplySettings"/> configured in the Project Settings menu and to <see cref="CleanUp"/> the project after the build process.
     /// </summary>
     public static class BuildManager
     {
-        private const string UtcNowFormat = "yyyy.MMdd.HHmm";
         private const string CreatedStreamingAssetsKey = "Coimbra.BuildManagement.Editor.BuildManager.CreatedStreamingAssetsKey";
         private const string LastBuildNameKey = "Coimbra.BuildManagement.Editor.BuildManager.LastBuildName";
         private const string LastFullVersionKey = "Coimbra.BuildManagement.Editor.BuildManager.LastFullVersion";
+        private const string UtcNowFormat = "yyyy.MMdd.HHmm";
 
         internal static string LastBuildName
         {
@@ -29,7 +28,6 @@ namespace Coimbra.BuildManagement
             get => SessionState.GetString(LastFullVersionKey, null) ?? PlayerSettings.bundleVersion;
             private set => SessionState.SetString(LastFullVersionKey, value);
         }
-
         private static string BuildName
         {
             get
@@ -44,7 +42,7 @@ namespace Coimbra.BuildManagement
         }
 
         /// <summary>
-        /// Apply settings configured in the Project Settings menu.
+        ///     Apply settings configured in the Project Settings menu.
         /// </summary>
         [PublicAPI]
         public static void ApplySettings()
@@ -97,7 +95,7 @@ namespace Coimbra.BuildManagement
         }
 
         /// <summary>
-        /// Clean data created temporarily during the build process and generate the standardized output.
+        ///     Clean data created temporarily during the build process and generate the standardized output.
         /// </summary>
         [PublicAPI]
         public static void CleanUp()
@@ -126,14 +124,17 @@ namespace Coimbra.BuildManagement
                         Directory.Delete(streamingAssetsPath);
                         File.Delete($"{streamingAssetsPath}.meta");
                     }
-                    catch { }
+                    catch
+                    {
+                        // ignored
+                    }
 
                     SessionState.EraseBool(CreatedStreamingAssetsKey);
                 }
             }
             catch (Exception e)
             {
-                Debug.LogWarning(e.Message);
+                UnityEngine.Debug.LogWarning(e.Message);
             }
         }
 
@@ -216,15 +217,15 @@ namespace Coimbra.BuildManagement
         }
 
         [UsedImplicitly]
-        private static void SetMacScriptingBackend()
-        {
-            PlayerSettings.SetScriptingBackend(BuildTargetGroup.Standalone, GlobalSettingsProvider.LocalBuild.PreferredMacScriptingBackend);
-        }
-
-        [UsedImplicitly]
         private static void SetLinuxScriptingBackend()
         {
             PlayerSettings.SetScriptingBackend(BuildTargetGroup.Standalone, GlobalSettingsProvider.LocalBuild.PreferredLinuxScriptingBackend);
+        }
+
+        [UsedImplicitly]
+        private static void SetMacScriptingBackend()
+        {
+            PlayerSettings.SetScriptingBackend(BuildTargetGroup.Standalone, GlobalSettingsProvider.LocalBuild.PreferredMacScriptingBackend);
         }
 
         [UsedImplicitly]

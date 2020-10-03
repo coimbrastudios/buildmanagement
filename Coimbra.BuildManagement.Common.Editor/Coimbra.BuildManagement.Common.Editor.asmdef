@@ -1,5 +1,5 @@
 {
-    "name": "Coimbra.BuildManagement.Editor.Common",
+    "name": "Coimbra.BuildManagement.Common.Editor",
     "references": [],
     "includePlatforms": [
         "Editor"

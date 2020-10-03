@@ -4,17 +4,20 @@ using System;
 using System.IO;
 using UnityEditor;
 using UnityEditor.Build.Reporting;
-using Debug = UnityEngine.Debug;
+using UnityEditor.WindowsStandalone;
+using UnityEngine;
 
 namespace Coimbra.BuildManagement
 {
     /// <summary>
-    /// Use <see cref="BuildPlayer"/> method in <see cref="BuildPlayerWindow.RegisterBuildPlayerHandler"/> to integrate with the standard <see cref="BuildPipeline"/>
+    ///     Use <see cref="BuildPlayer"/> method in
+    ///     <a href="https://docs.unity3d.com/ScriptReference/BuildPlayerWindow.RegisterBuildPlayerHandler.html">BuildPlayerWindow.RegisterBuildPlayerHandler</a>
+    ///     to integrate with the standard <a href="https://docs.unity3d.com/ScriptReference/BuildPipeline.html">BuildPipeline</a>
     /// </summary>
     public static class BuildPlayerHandler
     {
         /// <summary>
-        /// Apply the <see cref="BuildManager"/> configurations and build the player.
+        ///     Apply the <see cref="BuildManager"/> configurations and build the player.
         /// </summary>
         [PublicAPI]
         public static void BuildPlayer(BuildPlayerOptions buildPlayerOptions)
@@ -33,7 +36,7 @@ namespace Coimbra.BuildManagement
 #if UNITY_STANDALONE_OSX
                                          || UnityEditor.OSXStandalone.UserBuildSettings.createXcodeProject
 #elif UNITY_STANDALONE_WIN
-                                         || UnityEditor.WindowsStandalone.UserBuildSettings.createSolution
+                                         || UserBuildSettings.createSolution
 #endif
                                          || EditorUserBuildSettings.exportAsGoogleAndroidProject;
 

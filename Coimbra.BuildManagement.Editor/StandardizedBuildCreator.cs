@@ -12,14 +12,13 @@ namespace Coimbra.BuildManagement
     internal sealed class StandardizedBuildCreator
     {
         private const string IgnoredFolderSuffix = "_BackUpThisFolder_ButDontShipItWithYourGame";
-
         private readonly bool _showFolder;
+        private readonly BuildTarget _buildTarget;
         private readonly string _buildName;
         private readonly string _buildVersion;
         private readonly string _originalOutputPath;
         private readonly string _productName;
         private readonly string _standardOutputFolderPath;
-        private readonly BuildTarget _buildTarget;
 
         internal StandardizedBuildCreator(BuildSummary buildSummary, bool showFolder)
         {

@@ -8,40 +8,38 @@ using UnityEngine.Scripting;
 namespace Coimbra.BuildManagement
 {
     /// <summary>
-    /// Holds custom metadata injected during the build.
+    ///     Holds custom metadata injected during the build.
     /// </summary>
     [Preserve]
     [Serializable]
     public sealed class BuildMetadata
     {
-        internal const string FileName = "Coimbra.BuildManagement.BuildMetadata.json";
-
-        internal readonly string AbsoluteFilePath = Path.Combine(Application.streamingAssetsPath, FileName);
-        internal readonly string AssetFilePath = $"Assets/StreamingAssets/{FileName}";
-
         [SerializeField] private string _buildName;
         [SerializeField] private string _fullVersion;
+
+        internal const string FileName = "Coimbra.BuildManagement.BuildMetadata.json";
+        internal readonly string AbsoluteFilePath = Path.Combine(Application.streamingAssetsPath, FileName);
+        internal readonly string AssetFilePath = $"Assets/StreamingAssets/{FileName}";
 
         private BuildMetadata() { }
 
         /// <summary>
-        /// The build name as chosen in the project settings.
+        ///     The build name as chosen in the project settings.
         /// </summary>
-        [NotNull]
-        [PublicAPI]
+        [NotNull] [PublicAPI]
         public string BuildName => _buildName ?? string.Empty;
+
         /// <summary>
-        /// The unique version of the build in the format "{bundleVersion}-{buildTime}".
+        ///     The unique version of the build in the format "{bundleVersion}-{buildTime}".
         /// </summary>
-        [NotNull]
-        [PublicAPI]
+        [NotNull] [PublicAPI]
         public string FullVersion => _fullVersion ?? string.Empty;
 
         /// <summary>
-        /// Use this to access the custom build metadata.
+        ///     Use this to access the custom build metadata.
         /// </summary>
         /// <returns>null if the custom build metadata could not be found.</returns>
-        [PublicAPI]
+        [CanBeNull] [PublicAPI]
         public static BuildMetadata GetInstance()
         {
             string filePath = $"{Application.streamingAssetsPath}/{FileName}";

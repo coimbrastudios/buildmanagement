@@ -1,3 +1,3 @@
 using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("Coimbra.BuildManagement.Editor.Local")]
+[assembly: InternalsVisibleTo("Coimbra.BuildManagement.Local.Editor")]

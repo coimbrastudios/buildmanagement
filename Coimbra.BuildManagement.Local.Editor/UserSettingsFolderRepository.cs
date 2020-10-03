@@ -1,22 +1,19 @@
 using System;
 using System.IO;
-using UnityEditor;
-using UnityEditor.SettingsManagement;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace Coimbra.BuildManagement.Local
+namespace UnityEditor.SettingsManagement
 {
     [Serializable]
     internal sealed class UserSettingsFolderRepository : ISettingsRepository
     {
-        private const bool PrettyPrintJson = true;
-        private const string SettingsDirectory = "UserSettings/Packages";
-
-        [SerializeField] private string _name = default;
-        [SerializeField] private string _path = default;
+        [SerializeField] private string _name;
+        [SerializeField] private string _path;
         [SerializeField] private SettingsDictionary _dictionary = new SettingsDictionary();
 
+        private const bool PrettyPrintJson = true;
+        private const string SettingsDirectory = "UserSettings/Packages";
         private bool _initialized;
         private string _cachedJson;
 
@@ -30,35 +27,35 @@ namespace Coimbra.BuildManagement.Local
             EditorApplication.quitting += Save;
         }
 
-        private void Initialize()
-        {
-            if (_initialized)
-            {
-                return;
-            }
+        public string name => _name;
 
-            _initialized = true;
-
-            if (File.Exists(path))
-            {
-                _dictionary = null;
-                _cachedJson = File.ReadAllText(path);
-                EditorJsonUtility.FromJsonOverwrite(_cachedJson, this);
-
-                if (_dictionary == null)
-                {
-                    _dictionary = new SettingsDictionary();
-                }
-            }
-        }
+        public string path => _path;
 
         public SettingsScope scope => SettingsScope.User;
-        public string name => _name;
-        public string path => _path;
 
         public static string GetSettingsPath(string packageName, string name = "Settings")
         {
             return $"{SettingsDirectory}/{packageName}/{name}.json";
+        }
+
+        public bool ContainsKey<T>(string key)
+        {
+            Initialize();
+
+            return _dictionary.ContainsKey<T>(key);
+        }
+
+        public T Get<T>(string key, T fallback = default)
+        {
+            Initialize();
+
+            return _dictionary.Get(key, fallback);
+        }
+
+        public void Remove<T>(string key)
+        {
+            Initialize();
+            _dictionary.Remove<T>(key);
         }
 
         public void Save()
@@ -105,24 +102,26 @@ namespace Coimbra.BuildManagement.Local
             _dictionary.Set(key, value);
         }
 
-        public T Get<T>(string key, T fallback = default(T))
+        private void Initialize()
         {
-            Initialize();
+            if (_initialized)
+            {
+                return;
+            }
 
-            return _dictionary.Get(key, fallback);
-        }
+            _initialized = true;
 
-        public bool ContainsKey<T>(string key)
-        {
-            Initialize();
+            if (File.Exists(path))
+            {
+                _dictionary = null;
+                _cachedJson = File.ReadAllText(path);
+                EditorJsonUtility.FromJsonOverwrite(_cachedJson, this);
 
-            return _dictionary.ContainsKey<T>(key);
-        }
-
-        public void Remove<T>(string key)
-        {
-            Initialize();
-            _dictionary.Remove<T>(key);
+                if (_dictionary == null)
+                {
+                    _dictionary = new SettingsDictionary();
+                }
+            }
         }
     }
 }

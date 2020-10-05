@@ -5,9 +5,9 @@ namespace Coimbra.BuildManagement.Common
 {
     internal static class BuildManagerUtility
     {
-        internal const string PackageName = "com.coimbra.buildmanagement";
-        internal const string UserPreferencesPath = "Preferences/Build Manager";
-        internal const string ProjectSettingsPath = "Project/Build Manager";
+        internal const string PackageName = "com.coimbrastudios.buildmanagement";
+        internal const string UserPreferencesPath = "Preferences/CS Build Management";
+        internal const string ProjectSettingsPath = "Project/CS Build Management";
 
         internal static void EnsureDirectoryExists(string directory)
         {

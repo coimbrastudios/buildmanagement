@@ -8,12 +8,12 @@ To install this package, follow the instructions in the [Package Manager documen
 
 # Using Build Management
 
-In the Build Management package there are settings that affects the project itself (`Edit/Project Settings.../Build Manager`):
+In the Build Management package there are settings that affects the project itself (`Edit/Project Settings.../CS Build Management`):
 
 ![](project-settings.png)
 > `*` Settings with tooltips.
 
-And settings that can be individually set by each user locally (`Edit/Preferences.../Build Manager`):
+And settings that can be individually set by each user locally (`Edit/Preferences.../CS Build Management`):
 
 ![](preferences.png)
 > `*` Settings with tooltips.
@@ -40,4 +40,5 @@ This version of Build Management is compatible with the following versions of th
 
 |Date|Comment|
 |---|---|
-|2020-08-02|Document created. Matches package version 1.0.0 to 1.1.0|
+|2020-10-04|Document updated to match version 1.1.0|
+|2020-08-02|Document created. Matches package version 1.0.0|

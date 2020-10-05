@@ -13,9 +13,9 @@ namespace Coimbra.BuildManagement
     /// </summary>
     public static class BuildManager
     {
-        private const string CreatedStreamingAssetsKey = "Coimbra.BuildManagement.Editor.BuildManager.CreatedStreamingAssetsKey";
-        private const string LastBuildNameKey = "Coimbra.BuildManagement.Editor.BuildManager.LastBuildName";
-        private const string LastFullVersionKey = "Coimbra.BuildManagement.Editor.BuildManager.LastFullVersion";
+        private const string CreatedStreamingAssetsKey = "Coimbra.BuildManagement.BuildManager.CreatedStreamingAssetsKey";
+        private const string LastBuildNameKey = "Coimbra.BuildManagement.BuildManager.LastBuildName";
+        private const string LastFullVersionKey = "Coimbra.BuildManagement.BuildManager.LastFullVersion";
         private const string UtcNowFormat = "yyyy.MMdd.HHmm";
 
         internal static string LastBuildName

@@ -13,7 +13,7 @@ namespace Coimbra.BuildManagement.Local
     internal static class LocalSettingsProvider
     {
         [UserSetting] private static readonly LocalSetting<OpenBuiltPlayerOptions> OpenBuiltPlayerOptionsSetting = new LocalSetting<OpenBuiltPlayerOptions>(BuildManagerUtility.PackageName + ".localBuilds.openBuiltPlayerOptions", OpenBuiltPlayerOptions.OpenStandardizedOutput);
-        [UserSetting] private static readonly LocalSetting<bool> CreateStandardizedBuildOutputSetting = new LocalSetting<bool>(BuildManagerUtility.PackageName + ".localBuilds.createStandardizedBuildOutput", true);
+        [UserSetting] private static readonly LocalSetting<bool> CreateStandardizedBuildOutputSetting = new LocalSetting<bool>(BuildManagerUtility.PackageName + ".localBuilds.createStandardizedBuildOutput", false);
         [UserSetting] private static readonly LocalSetting<bool> GroupByBuildNameSetting = new LocalSetting<bool>(BuildManagerUtility.PackageName + ".localBuilds.groupByBuildName", false);
         [UserSetting] private static readonly LocalSetting<bool> GroupByBuildTargetSetting = new LocalSetting<bool>(BuildManagerUtility.PackageName + ".localBuilds.groupByBuildTarget", true);
         [UserSetting] private static readonly LocalSetting<string> StandardizedBuildOutputPathSetting = new LocalSetting<string>(BuildManagerUtility.PackageName + ".localBuilds.standardizedBuildOutputPath", DefaultStandardizedBuildOutputPath);

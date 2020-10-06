@@ -26,38 +26,29 @@ namespace Coimbra.BuildManagement
 
         private UnityCloudBuildManifest() { }
 
-        [PublicAPI]
         public string BuildNumber => buildNumber;
 
-        [PublicAPI]
         public string BuildStartTime => buildStartTime;
 
-        [PublicAPI]
         public string BundleId => bundleId;
 
-        [PublicAPI]
         public string CloudBuildTargetName => cloudBuildTargetName;
 
-        [PublicAPI]
         public string ProjectId => projectId;
 
-        [PublicAPI]
         public string ScmBranch => scmBranch;
 
-        [PublicAPI]
         public string ScmCommitId => scmCommitId;
 
-        [PublicAPI]
         public string UnityVersion => unityVersion;
 
-        [PublicAPI]
         public string XcodeVersion => xcodeVersion;
 
         /// <summary>
         ///     Use this to access the UnityCloudBuildManifest.
         /// </summary>
         /// <returns>null if the UnityCloudBuildManifest is not found.</returns>
-        [CanBeNull] [PublicAPI]
+        [CanBeNull]
         public static UnityCloudBuildManifest GetInstance()
         {
             TextAsset textAsset = Resources.Load<TextAsset>("UnityCloudBuildManifest.json");

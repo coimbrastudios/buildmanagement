@@ -1,5 +1,4 @@
-using Coimbra.BuildManagement.Local;
-using JetBrains.Annotations;
+using Coimbra.BuildManagement.Editor.Local;
 using System;
 using System.IO;
 using UnityEditor;
@@ -7,7 +6,7 @@ using UnityEditor.Build.Reporting;
 using UnityEditor.WindowsStandalone;
 using UnityEngine;
 
-namespace Coimbra.BuildManagement
+namespace Coimbra.BuildManagement.Editor
 {
     /// <summary>
     ///     Use <see cref="BuildPlayer"/> method in
@@ -19,7 +18,6 @@ namespace Coimbra.BuildManagement
         /// <summary>
         ///     Apply the <see cref="BuildManager"/> configurations and build the player.
         /// </summary>
-        [PublicAPI]
         public static void BuildPlayer(BuildPlayerOptions buildPlayerOptions)
         {
             if (string.IsNullOrEmpty(buildPlayerOptions.locationPathName))

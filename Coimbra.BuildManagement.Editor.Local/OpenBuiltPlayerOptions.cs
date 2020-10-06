@@ -1,7 +1,7 @@
 using JetBrains.Annotations;
 using System;
 
-namespace Coimbra.BuildManagement.Local
+namespace Coimbra.BuildManagement.Editor.Local
 {
     [Flags]
     internal enum OpenBuiltPlayerOptions

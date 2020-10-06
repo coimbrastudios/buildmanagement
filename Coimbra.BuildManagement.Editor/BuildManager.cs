@@ -1,4 +1,4 @@
-using Coimbra.BuildManagement.Global;
+using Coimbra.BuildManagement.Editor.Global;
 using JetBrains.Annotations;
 using System;
 using System.Diagnostics;
@@ -6,7 +6,7 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-namespace Coimbra.BuildManagement
+namespace Coimbra.BuildManagement.Editor
 {
     /// <summary>
     ///     Use this class to <see cref="ApplySettings"/> configured in the Project Settings menu and to <see cref="CleanUp"/> the project after the build process.
@@ -44,7 +44,6 @@ namespace Coimbra.BuildManagement
         /// <summary>
         ///     Apply settings configured in the Project Settings menu.
         /// </summary>
-        [PublicAPI]
         public static void ApplySettings()
         {
             DateTime rawUtcNow = DateTime.UtcNow;
@@ -97,7 +96,6 @@ namespace Coimbra.BuildManagement
         /// <summary>
         ///     Clean data created temporarily during the build process and generate the standardized output.
         /// </summary>
-        [PublicAPI]
         public static void CleanUp()
         {
             BuildMetadata buildMetadata = BuildMetadata.GetInstance();

@@ -26,20 +26,20 @@ namespace Coimbra.BuildManagement
         /// <summary>
         ///     The build name as chosen in the project settings.
         /// </summary>
-        [NotNull] [PublicAPI]
+        [NotNull]
         public string BuildName => _buildName ?? string.Empty;
 
         /// <summary>
         ///     The unique version of the build in the format "{bundleVersion}-{buildTime}".
         /// </summary>
-        [NotNull] [PublicAPI]
+        [NotNull]
         public string FullVersion => _fullVersion ?? string.Empty;
 
         /// <summary>
         ///     Use this to access the custom build metadata.
         /// </summary>
         /// <returns>null if the custom build metadata could not be found.</returns>
-        [CanBeNull] [PublicAPI]
+        [CanBeNull]
         public static BuildMetadata GetInstance()
         {
             string filePath = $"{Application.streamingAssetsPath}/{FileName}";

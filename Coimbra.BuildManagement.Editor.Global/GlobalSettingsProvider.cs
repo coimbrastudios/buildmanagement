@@ -1,10 +1,10 @@
-using Coimbra.BuildManagement.Common;
+using Coimbra.BuildManagement.Editor.Common;
 using JetBrains.Annotations;
 using UnityEditor;
 using UnityEditor.SettingsManagement;
 using UnityEngine;
 
-namespace Coimbra.BuildManagement.Global
+namespace Coimbra.BuildManagement.Editor.Global
 {
     [NoReorder]
     internal static class GlobalSettingsProvider
@@ -215,7 +215,8 @@ namespace Coimbra.BuildManagement.Global
 
         private static Settings _settings;
 
-        [NotNull] internal static Settings Settings
+        [NotNull]
+        internal static Settings Settings
         {
             get
             {

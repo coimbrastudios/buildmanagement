@@ -1,7 +1,7 @@
 ﻿using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 
-namespace Coimbra.BuildManagement
+namespace Coimbra.BuildManagement.Editor
 {
     internal sealed class BuildProcessor : IPreprocessBuildWithReport, IPostprocessBuildWithReport
     {

@@ -1,5 +1,5 @@
-using Coimbra.BuildManagement.Common;
-using Coimbra.BuildManagement.Local;
+using Coimbra.BuildManagement.Editor.Common;
+using Coimbra.BuildManagement.Editor.Local;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
@@ -7,7 +7,7 @@ using UnityEditor;
 using UnityEditor.Build.Reporting;
 using UnityEngine.Assertions;
 
-namespace Coimbra.BuildManagement
+namespace Coimbra.BuildManagement.Editor
 {
     internal sealed class StandardizedBuildCreator
     {

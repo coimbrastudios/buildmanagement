@@ -1,5 +1,5 @@
 {
-    "name": "Coimbra.BuildManagement.Local.Editor",
+    "name": "Coimbra.BuildManagement.Editor.Local",
     "references": [
         "GUID:43e179fbfcdfbe7488a612ac1a9d3c13",
         "GUID:49818357e697641afb75d2f8acaf1861"

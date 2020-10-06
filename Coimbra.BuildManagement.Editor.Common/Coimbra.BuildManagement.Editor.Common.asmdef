@@ -1,9 +1,6 @@
 {
-    "name": "Coimbra.BuildManagement.Global.Editor",
-    "references": [
-        "GUID:43e179fbfcdfbe7488a612ac1a9d3c13",
-        "GUID:49818357e697641afb75d2f8acaf1861"
-    ],
+    "name": "Coimbra.BuildManagement.Editor.Common",
+    "references": [],
     "includePlatforms": [
         "Editor"
     ],

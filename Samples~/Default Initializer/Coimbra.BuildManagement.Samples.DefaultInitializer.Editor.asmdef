@@ -1,5 +1,5 @@
 {
-    "name": "Coimbra.BuildManagement.Samples.Editor.DefaultInitializer",
+    "name": "Coimbra.BuildManagement.Samples.DefaultInitializer.Editor",
     "references": [
         "GUID:3cc9a1bf9a117b941af83602607a47dc"
     ],

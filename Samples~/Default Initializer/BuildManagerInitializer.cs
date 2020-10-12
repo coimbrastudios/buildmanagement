@@ -1,7 +1,7 @@
 ﻿using Coimbra.BuildManagement.Editor;
 using UnityEditor;
 
-namespace Coimbra.BuildManagement.Samples.Editor.DefaultInitializer
+namespace Coimbra.BuildManagement.Samples.DefaultInitializer.Editor
 {
     public static class BuildManagerInitializer
     {

@@ -3,6 +3,7 @@
 ## [1.1.0] - UNRELEASED
 
 - Changed to Create Standardized Build Output be off by default
+- Changed Default Initialize sample assembly to use default one
 - Refactored namespaces to avoid conflict with UnityEditor.Editor class
 - Updated Project Settings and Preferences path to CS Build Management
 

@@ -1,9 +1,10 @@
 # Changelog
 
-## [1.1.0] - UNRELEASED
+## [1.1.0] - 2021-02-18
 
 - Changed to Create Standardized Build Output be off by default
-- Changed Default Initialize sample assembly to use default one
+- Changed Default Initialize sample assembly be Unity's default one
+- Changed Show Plash Screen/Logo default values to be the ones current set in the Player Settings
 - Refactored namespaces to avoid conflict with UnityEditor.Editor class
 - Updated Project Settings and Preferences path to CS Build Management
 

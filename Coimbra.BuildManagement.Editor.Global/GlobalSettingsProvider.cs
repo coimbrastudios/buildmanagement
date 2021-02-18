@@ -14,13 +14,12 @@ namespace Coimbra.BuildManagement.Editor.Global
             [UsedImplicitly] Mono,
             [UsedImplicitly] IL2CPP,
         }
-
         [NoReorder]
         internal static class General
         {
             [UserSetting] private static readonly GlobalSetting<bool> UseProjectFolderAsBuildNameSetting = new GlobalSetting<bool>("General.UseProjectFolderAsBuildName", false);
-            [UserSetting] private static readonly GlobalSetting<bool> ShowSplashScreenSetting = new GlobalSetting<bool>("General.ShowSplashScreen", true);
-            [UserSetting] private static readonly GlobalSetting<bool> ShowUnityLogoSetting = new GlobalSetting<bool>("General.ShowUnityLogo", false);
+            [UserSetting] private static readonly GlobalSetting<BoolState> ShowSplashScreenSetting = new GlobalSetting<BoolState>("General.ShowSplashScreen", BoolState.Null);
+            [UserSetting] private static readonly GlobalSetting<BoolState> ShowUnityLogoSetting = new GlobalSetting<BoolState>("General.ShowUnityLogo", BoolState.Null);
             [UserSetting] private static readonly GlobalSetting<bool> UseUtcNowAsIosBuildNumberSetting = new GlobalSetting<bool>("General.UseUtcNowAsIosBuildNumber", true);
             [UserSetting] private static readonly GlobalSetting<bool> UseUtcNowAsMacBuildNumberSetting = new GlobalSetting<bool>("General.UseUtcNowAsMacBuildNumber", true);
 
@@ -37,8 +36,8 @@ namespace Coimbra.BuildManagement.Editor.Global
                                                                                                "If checked, the Mac Build Number will be the build time in UTC (Coordinated Universal Time). The build number will be in the format 'yyyy.MMdd.HHmm' thus ensuring an ever-increasing and ever-changing Build Number.");
 
             internal static bool UseProjectFolderAsBuildName => UseProjectFolderAsBuildNameSetting;
-            internal static bool ShowSplashScreen => ShowSplashScreenSetting;
-            internal static bool ShowUnityLogo => ShowUnityLogoSetting;
+            internal static bool ShowSplashScreen => ShowSplashScreenSetting.value.GetOrDefault(PlayerSettings.SplashScreen.show);
+            internal static bool ShowUnityLogo => ShowUnityLogoSetting.value.GetOrDefault(PlayerSettings.SplashScreen.showUnityLogo);
             internal static bool UseUtcNowAsIosBuildNumber => UseUtcNowAsIosBuildNumberSetting;
             internal static bool UseUtcNowAsMacBuildNumber => UseUtcNowAsMacBuildNumberSetting;
 
@@ -55,16 +54,33 @@ namespace Coimbra.BuildManagement.Editor.Global
                     EditorGUILayout.Separator();
                 }
 
+                if (ShowSplashScreenSetting != BoolState.Null)
+                {
+                    PlayerSettings.SplashScreen.show = ShowSplashScreen;
+                }
+
+                if (ShowUnityLogoSetting != BoolState.Null)
+                {
+                    PlayerSettings.SplashScreen.showUnityLogo = ShowUnityLogo;
+                }
+
                 using (EditorGUI.ChangeCheckScope changeCheckScope = new EditorGUI.ChangeCheckScope())
                 {
                     UseProjectFolderAsBuildNameSetting.value = SettingsGUILayout.SettingsToggle(UseProjectFolderAsBuildNameLabel, UseProjectFolderAsBuildNameSetting, searchContext);
-                    ShowSplashScreenSetting.value = SettingsGUILayout.SettingsToggle(ShowSplashScreenLabel, ShowSplashScreenSetting, searchContext);
+
+                    BuildManagerUtility.DrawBoolStateField(searchContext, ShowSplashScreenLabel, ShowSplashScreenSetting, PlayerSettings.SplashScreen.show, delegate
+                    {
+                        PlayerSettings.SplashScreen.show = ShowSplashScreen;
+                    });
 
                     using (new EditorGUI.IndentLevelScope())
                     {
-                        using (new EditorGUI.DisabledScope(!ShowSplashScreenSetting))
+                        using (new EditorGUI.DisabledScope(!ShowSplashScreen))
                         {
-                            ShowUnityLogoSetting.value = SettingsGUILayout.SettingsToggle(ShowUnityLogoLabel, ShowUnityLogoSetting, searchContext);
+                            BuildManagerUtility.DrawBoolStateField(searchContext, ShowUnityLogoLabel, ShowUnityLogoSetting, PlayerSettings.SplashScreen.showUnityLogo, delegate
+                            {
+                                PlayerSettings.SplashScreen.showUnityLogo = ShowUnityLogo;
+                            });
                         }
                     }
 
@@ -185,23 +201,9 @@ namespace Coimbra.BuildManagement.Editor.Global
                     {
                         using (new EditorGUI.DisabledScope(!AllowFallbackToMonoSetting))
                         {
-                            if (BuildManagerUtility.TryMatchSearch(searchContext, PreferredLinuxScriptingBackendLabel.text))
-                            {
-                                PreferredLinuxScriptingBackendSetting.value = (ScriptingBackend)EditorGUILayout.EnumPopup(PreferredLinuxScriptingBackendLabel, PreferredLinuxScriptingBackendSetting);
-                                SettingsGUILayout.DoResetContextMenuForLastRect(PreferredLinuxScriptingBackendSetting);
-                            }
-
-                            if (BuildManagerUtility.TryMatchSearch(searchContext, PreferredMacScriptingBackendLabel.text))
-                            {
-                                PreferredMacScriptingBackendSetting.value = (ScriptingBackend)EditorGUILayout.EnumPopup(PreferredMacScriptingBackendLabel, PreferredMacScriptingBackendSetting);
-                                SettingsGUILayout.DoResetContextMenuForLastRect(PreferredMacScriptingBackendSetting);
-                            }
-
-                            if (BuildManagerUtility.TryMatchSearch(searchContext, PreferredWindowsScriptingBackendLabel.text))
-                            {
-                                PreferredWindowsScriptingBackendSetting.value = (ScriptingBackend)EditorGUILayout.EnumPopup(PreferredWindowsScriptingBackendLabel, PreferredWindowsScriptingBackendSetting);
-                                SettingsGUILayout.DoResetContextMenuForLastRect(PreferredWindowsScriptingBackendSetting);
-                            }
+                            BuildManagerUtility.DrawEnumField(searchContext, PreferredLinuxScriptingBackendLabel, PreferredLinuxScriptingBackendSetting, null);
+                            BuildManagerUtility.DrawEnumField(searchContext, PreferredMacScriptingBackendLabel, PreferredMacScriptingBackendSetting, null);
+                            BuildManagerUtility.DrawEnumField(searchContext, PreferredWindowsScriptingBackendLabel, PreferredWindowsScriptingBackendSetting, null);
                         }
                     }
 
@@ -216,18 +218,7 @@ namespace Coimbra.BuildManagement.Editor.Global
         private static Settings _settings;
 
         [NotNull]
-        internal static Settings Settings
-        {
-            get
-            {
-                if (_settings == null)
-                {
-                    _settings = new Settings(BuildManagerUtility.PackageName);
-                }
-
-                return _settings;
-            }
-        }
+        internal static Settings Settings => _settings ?? (_settings = new Settings(BuildManagerUtility.PackageName));
 
         [SettingsProvider]
         private static SettingsProvider CreateSettingsProvider()

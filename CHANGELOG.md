@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.1.1] - 2021-09-09
+
+- Fixed Default Initializer sample not showing up in the Package Manager
+
 ## [1.1.0] - 2021-02-18
 
 - Changed to Create Standardized Build Output be off by default
@@ -11,3 +15,4 @@
 ## [1.0.0] - 2020-08-08
 
 - Initial release
+

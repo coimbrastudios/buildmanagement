@@ -2,11 +2,18 @@
   "name": "com.coimbrastudios.buildmanagement",
   "displayName": "CS Build Management",
   "author": "Bruno Coimbra",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "unity": "2019.4",
   "description": "Automatize some common actions when building your application.",
   "type": "tool",
   "dependencies": {
     "com.unity.settings-manager": "1.0.3"
-  }
+  },
+  "samples": [
+    {
+      "displayName": "Default Initializer",
+      "description": "A simple class to quickly enable the Build Manager on your project.",
+      "path": "Samples~/Default Initializer"
+    }
+  ]
 }

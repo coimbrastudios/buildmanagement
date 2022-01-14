@@ -3,7 +3,6 @@ using System;
 using System.IO;
 using UnityEditor;
 using UnityEditor.Build.Reporting;
-using UnityEditor.WindowsStandalone;
 using UnityEngine;
 
 namespace Coimbra.BuildManagement.Editor
@@ -34,7 +33,7 @@ namespace Coimbra.BuildManagement.Editor
 #if UNITY_STANDALONE_OSX
                                          || UnityEditor.OSXStandalone.UserBuildSettings.createXcodeProject
 #elif UNITY_STANDALONE_WIN
-                                         || UserBuildSettings.createSolution
+                                         || UnityEditor.WindowsStandalone.UserBuildSettings.createSolution
 #endif
                                          || EditorUserBuildSettings.exportAsGoogleAndroidProject;
 

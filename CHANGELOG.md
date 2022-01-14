@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.1.2] - 2022-01-14
+
+- Fixed Default Initializer sample not showing up in the Package Manager
+
 ## [1.1.1] - 2021-09-09
 
 - Fixed Default Initializer sample not showing up in the Package Manager

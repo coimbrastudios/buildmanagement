@@ -80,7 +80,7 @@ namespace Coimbra.BuildManagement.Editor
                 return;
             }
 
-            StandardizedBuildCreator standardizedBuildCreator = new StandardizedBuildCreator(buildReport.summary, !autoRunPlayer && openStandardizedOutput);
+            StandardizedBuildCreator standardizedBuildCreator = new(buildReport.summary, !autoRunPlayer && openStandardizedOutput);
             standardizedBuildCreator.Execute();
         }
 

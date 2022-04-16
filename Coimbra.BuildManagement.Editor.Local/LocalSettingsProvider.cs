@@ -12,25 +12,25 @@ namespace Coimbra.BuildManagement.Editor.Local
     [NoReorder]
     internal static class LocalSettingsProvider
     {
-        [UserSetting] private static readonly LocalSetting<OpenBuiltPlayerOptions> OpenBuiltPlayerOptionsSetting = new LocalSetting<OpenBuiltPlayerOptions>(BuildManagerUtility.PackageName + ".localBuilds.openBuiltPlayerOptions", OpenBuiltPlayerOptions.OpenStandardizedOutput);
-        [UserSetting] private static readonly LocalSetting<bool> CreateStandardizedBuildOutputSetting = new LocalSetting<bool>(BuildManagerUtility.PackageName + ".localBuilds.createStandardizedBuildOutput", false);
-        [UserSetting] private static readonly LocalSetting<bool> GroupByBuildNameSetting = new LocalSetting<bool>(BuildManagerUtility.PackageName + ".localBuilds.groupByBuildName", false);
-        [UserSetting] private static readonly LocalSetting<bool> GroupByBuildTargetSetting = new LocalSetting<bool>(BuildManagerUtility.PackageName + ".localBuilds.groupByBuildTarget", true);
-        [UserSetting] private static readonly LocalSetting<string> StandardizedBuildOutputPathSetting = new LocalSetting<string>(BuildManagerUtility.PackageName + ".localBuilds.standardizedBuildOutputPath", DefaultStandardizedBuildOutputPath);
+        [UserSetting] private static readonly LocalSetting<OpenBuiltPlayerOptions> OpenBuiltPlayerOptionsSetting = new(BuildManagerUtility.PackageName + ".localBuilds.openBuiltPlayerOptions", OpenBuiltPlayerOptions.OpenStandardizedOutput);
+        [UserSetting] private static readonly LocalSetting<bool> CreateStandardizedBuildOutputSetting = new(BuildManagerUtility.PackageName + ".localBuilds.createStandardizedBuildOutput", false);
+        [UserSetting] private static readonly LocalSetting<bool> GroupByBuildNameSetting = new(BuildManagerUtility.PackageName + ".localBuilds.groupByBuildName", false);
+        [UserSetting] private static readonly LocalSetting<bool> GroupByBuildTargetSetting = new(BuildManagerUtility.PackageName + ".localBuilds.groupByBuildTarget", true);
+        [UserSetting] private static readonly LocalSetting<string> StandardizedBuildOutputPathSetting = new(BuildManagerUtility.PackageName + ".localBuilds.standardizedBuildOutputPath", DefaultStandardizedBuildOutputPath);
 
         private const string DefaultStandardizedBuildOutputPath = "Builds";
-        private static readonly GUIContent OpenBuiltPlayerOptionsLabel = new GUIContent("Open Built Player Options*",
-                                                                                        "By default Unity shows the built player folder after the building process. With this option you can choose to see both the original output folder and the standardized output, only one of them or even none of them at all.");
-        private static readonly GUIContent CreateStandardizedBuildOutputLabel = new GUIContent("Create Standardized Build Output*",
-                                                                                               "If checked it will copy the built player into the selected folder with a standardized name.");
-        private static readonly GUIContent GroupByBuildNameLabel = new GUIContent("Group by Build Name*",
-                                                                                  "If checked, the copied output will be put inside a folder with the same name as the build name. This way you can choose to have one build folder for all your projects without becoming starting mess.");
-        private static readonly GUIContent GroupByBuildTargetLabel = new GUIContent("Group by Build Target*",
-                                                                                    "If checked, the copied output will be put inside a folder with the name of the build target. If Group by Build Name is also checked, the build target folder folder will be placed inside the build name folder.");
-        private static readonly GUIContent StandardizedBuildOutputPathLabel = new GUIContent("Standardized Build Output Path*",
-                                                                                             "You can click in the path label to open the folder. The default value is a folder named 'Builds' relative to your project folder.");
-        private static readonly GUIContent ChangeButtonLabel = new GUIContent("Change Path");
-        private static readonly GUIContent ShowProjectSettingsLabel = new GUIContent("Show Project Settings");
+        private static readonly GUIContent OpenBuiltPlayerOptionsLabel = new("Open Built Player Options*",
+                                                                             "By default Unity shows the built player folder after the building process. With this option you can choose to see both the original output folder and the standardized output, only one of them or even none of them at all.");
+        private static readonly GUIContent CreateStandardizedBuildOutputLabel = new("Create Standardized Build Output*",
+                                                                                    "If checked it will copy the built player into the selected folder with a standardized name.");
+        private static readonly GUIContent GroupByBuildNameLabel = new("Group by Build Name*",
+                                                                       "If checked, the copied output will be put inside a folder with the same name as the build name. This way you can choose to have one build folder for all your projects without becoming starting mess.");
+        private static readonly GUIContent GroupByBuildTargetLabel = new("Group by Build Target*",
+                                                                         "If checked, the copied output will be put inside a folder with the name of the build target. If Group by Build Name is also checked, the build target folder folder will be placed inside the build name folder.");
+        private static readonly GUIContent StandardizedBuildOutputPathLabel = new("Standardized Build Output Path*",
+                                                                                  "You can click in the path label to open the folder. The default value is a folder named 'Builds' relative to your project folder.");
+        private static readonly GUIContent ChangeButtonLabel = new("Change Path");
+        private static readonly GUIContent ShowProjectSettingsLabel = new("Show Project Settings");
         private static Settings _settings;
 
         internal static bool CreateStandardizedBuildOutput => CreateStandardizedBuildOutputSetting;
@@ -91,7 +91,7 @@ namespace Coimbra.BuildManagement.Editor.Local
                 EditorGUILayout.Separator();
             }
 
-            using (EditorGUI.ChangeCheckScope changeCheckScope = new EditorGUI.ChangeCheckScope())
+            using (EditorGUI.ChangeCheckScope changeCheckScope = new())
             {
                 if (BuildManagerUtility.TryMatchSearch(searchContext, OpenBuiltPlayerOptionsLabel.text))
                 {
@@ -109,7 +109,7 @@ namespace Coimbra.BuildManagement.Editor.Local
 
             using (new EditorGUI.DisabledScope(!CreateStandardizedBuildOutputSetting))
             {
-                using (EditorGUI.ChangeCheckScope changeCheckScope = new EditorGUI.ChangeCheckScope())
+                using (EditorGUI.ChangeCheckScope changeCheckScope = new())
                 {
                     using (new EditorGUI.IndentLevelScope())
                     {

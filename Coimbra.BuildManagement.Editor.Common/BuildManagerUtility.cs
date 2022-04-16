@@ -19,7 +19,7 @@ namespace Coimbra.BuildManagement.Editor.Common
                 return;
             }
 
-            using (EditorGUI.ChangeCheckScope changeCheckScope = new EditorGUI.ChangeCheckScope())
+            using (EditorGUI.ChangeCheckScope changeCheckScope = new())
             {
                 BoolState value = EditorGUILayout.Toggle(label, userSetting.value.GetOrDefault(defaultValue)) ? BoolState.True : BoolState.False;
 
@@ -41,7 +41,7 @@ namespace Coimbra.BuildManagement.Editor.Common
                 return;
             }
 
-            using (EditorGUI.ChangeCheckScope changeCheckScope = new EditorGUI.ChangeCheckScope())
+            using (EditorGUI.ChangeCheckScope changeCheckScope = new())
             {
                 T value = (T)EditorGUILayout.EnumPopup(label, userSetting);
 

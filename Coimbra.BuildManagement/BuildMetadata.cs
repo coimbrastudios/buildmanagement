@@ -49,7 +49,7 @@ namespace Coimbra.BuildManagement
                 return null;
             }
 
-            BuildMetadata instance = new BuildMetadata();
+            BuildMetadata instance = new();
             JsonUtility.FromJsonOverwrite(File.ReadAllText(filePath), instance);
 
             return instance;
@@ -57,7 +57,7 @@ namespace Coimbra.BuildManagement
 
         internal static BuildMetadata SetInstance(string buildName, string fullVersion)
         {
-            BuildMetadata instance = new BuildMetadata
+            BuildMetadata instance = new()
             {
                 _buildName = buildName,
                 _fullVersion = fullVersion,

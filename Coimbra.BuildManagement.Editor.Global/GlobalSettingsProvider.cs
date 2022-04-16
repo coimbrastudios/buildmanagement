@@ -17,23 +17,23 @@ namespace Coimbra.BuildManagement.Editor.Global
         [NoReorder]
         internal static class General
         {
-            [UserSetting] private static readonly GlobalSetting<bool> UseProjectFolderAsBuildNameSetting = new GlobalSetting<bool>("General.UseProjectFolderAsBuildName", false);
-            [UserSetting] private static readonly GlobalSetting<BoolState> ShowSplashScreenSetting = new GlobalSetting<BoolState>("General.ShowSplashScreen", BoolState.Null);
-            [UserSetting] private static readonly GlobalSetting<BoolState> ShowUnityLogoSetting = new GlobalSetting<BoolState>("General.ShowUnityLogo", BoolState.Null);
-            [UserSetting] private static readonly GlobalSetting<bool> UseUtcNowAsIosBuildNumberSetting = new GlobalSetting<bool>("General.UseUtcNowAsIosBuildNumber", true);
-            [UserSetting] private static readonly GlobalSetting<bool> UseUtcNowAsMacBuildNumberSetting = new GlobalSetting<bool>("General.UseUtcNowAsMacBuildNumber", true);
+            [UserSetting] private static readonly GlobalSetting<bool> UseProjectFolderAsBuildNameSetting = new("General.UseProjectFolderAsBuildName", false);
+            [UserSetting] private static readonly GlobalSetting<BoolState> ShowSplashScreenSetting = new("General.ShowSplashScreen", BoolState.Null);
+            [UserSetting] private static readonly GlobalSetting<BoolState> ShowUnityLogoSetting = new("General.ShowUnityLogo", BoolState.Null);
+            [UserSetting] private static readonly GlobalSetting<bool> UseUtcNowAsIosBuildNumberSetting = new("General.UseUtcNowAsIosBuildNumber", true);
+            [UserSetting] private static readonly GlobalSetting<bool> UseUtcNowAsMacBuildNumberSetting = new("General.UseUtcNowAsMacBuildNumber", true);
 
-            private static readonly GUIContent ShowUserPreferencesLabel = new GUIContent("Show User Preferences");
-            private static readonly GUIContent UseProjectFolderAsBuildNameLabel = new GUIContent("Use Project Folder As Build Name*",
-                                                                                                 "If not checked, the build name metadata will be the same as the product name.");
-            private static readonly GUIContent ShowSplashScreenLabel = new GUIContent("Show Splash Screen*",
-                                                                                      "This setting will only take effect if you are a Plus/Pro subscriber. Useful if working on a project in which not all developers have an active subscription.");
-            private static readonly GUIContent ShowUnityLogoLabel = new GUIContent("Show Unity Logo*",
-                                                                                   "This setting will only take effect if you are a Plus/Pro subscriber. Useful when working on a project in which not all developers have an active subscription.");
-            private static readonly GUIContent UseUtcNowAsIosBuildNumberLabel = new GUIContent("Use Utc Now as iOS Build Number*",
-                                                                                               "If checked, the iOS Build Number will be the build time in UTC (Coordinated Universal Time). The build number will be in the format 'yyyy.MMdd.HHmm' thus ensuring an ever-increasing and ever-changing Build Number.");
-            private static readonly GUIContent UseUtcNowAsMacBuildNumberLabel = new GUIContent("Use Utc Now as Mac Build Number*",
-                                                                                               "If checked, the Mac Build Number will be the build time in UTC (Coordinated Universal Time). The build number will be in the format 'yyyy.MMdd.HHmm' thus ensuring an ever-increasing and ever-changing Build Number.");
+            private static readonly GUIContent ShowUserPreferencesLabel = new("Show User Preferences");
+            private static readonly GUIContent UseProjectFolderAsBuildNameLabel = new("Use Project Folder As Build Name*",
+                                                                                      "If not checked, the build name metadata will be the same as the product name.");
+            private static readonly GUIContent ShowSplashScreenLabel = new("Show Splash Screen*",
+                                                                           "This setting will only take effect if you are a Plus/Pro subscriber. Useful if working on a project in which not all developers have an active subscription.");
+            private static readonly GUIContent ShowUnityLogoLabel = new("Show Unity Logo*",
+                                                                        "This setting will only take effect if you are a Plus/Pro subscriber. Useful when working on a project in which not all developers have an active subscription.");
+            private static readonly GUIContent UseUtcNowAsIosBuildNumberLabel = new("Use Utc Now as iOS Build Number*",
+                                                                                    "If checked, the iOS Build Number will be the build time in UTC (Coordinated Universal Time). The build number will be in the format 'yyyy.MMdd.HHmm' thus ensuring an ever-increasing and ever-changing Build Number.");
+            private static readonly GUIContent UseUtcNowAsMacBuildNumberLabel = new("Use Utc Now as Mac Build Number*",
+                                                                                    "If checked, the Mac Build Number will be the build time in UTC (Coordinated Universal Time). The build number will be in the format 'yyyy.MMdd.HHmm' thus ensuring an ever-increasing and ever-changing Build Number.");
 
             internal static bool UseProjectFolderAsBuildName => UseProjectFolderAsBuildNameSetting;
             internal static bool ShowSplashScreen => ShowSplashScreenSetting.value.GetOrDefault(PlayerSettings.SplashScreen.show);
@@ -64,7 +64,7 @@ namespace Coimbra.BuildManagement.Editor.Global
                     PlayerSettings.SplashScreen.showUnityLogo = ShowUnityLogo;
                 }
 
-                using (EditorGUI.ChangeCheckScope changeCheckScope = new EditorGUI.ChangeCheckScope())
+                using (EditorGUI.ChangeCheckScope changeCheckScope = new())
                 {
                     UseProjectFolderAsBuildNameSetting.value = SettingsGUILayout.SettingsToggle(UseProjectFolderAsBuildNameLabel, UseProjectFolderAsBuildNameSetting, searchContext);
 
@@ -98,20 +98,20 @@ namespace Coimbra.BuildManagement.Editor.Global
         [NoReorder]
         internal static class CloudBuild
         {
-            [UserSetting] private static readonly GlobalSetting<bool> AppendBuildNumberToVersionSetting = new GlobalSetting<bool>("CloudBuild.AppendBuildNumberToVersion", false);
-            [UserSetting] private static readonly GlobalSetting<string> BuildNumberExpressionSetting = new GlobalSetting<string>("CloudBuild.BuildNumberExpression", BuildNumberPlaceholder);
-            [UserSetting] private static readonly GlobalSetting<bool> UseBuildStartTimeAsUtcNowSetting = new GlobalSetting<bool>("CloudBuild.UseBuildStartTimeAsUtcNow", true);
-            [UserSetting] private static readonly GlobalSetting<bool> SumBuildNumberToBundleVersionCodeSetting = new GlobalSetting<bool>("CloudBuild.SumBuildNumberToBundleVersionCode", true);
+            [UserSetting] private static readonly GlobalSetting<bool> AppendBuildNumberToVersionSetting = new("CloudBuild.AppendBuildNumberToVersion", false);
+            [UserSetting] private static readonly GlobalSetting<string> BuildNumberExpressionSetting = new("CloudBuild.BuildNumberExpression", BuildNumberPlaceholder);
+            [UserSetting] private static readonly GlobalSetting<bool> UseBuildStartTimeAsUtcNowSetting = new("CloudBuild.UseBuildStartTimeAsUtcNow", true);
+            [UserSetting] private static readonly GlobalSetting<bool> SumBuildNumberToBundleVersionCodeSetting = new("CloudBuild.SumBuildNumberToBundleVersionCode", true);
 
             private const string BuildNumberPlaceholder = "#";
-            private static readonly GUIContent AppendBuildNumberToVersionLabel = new GUIContent("Append Build Number to Version*",
-                                                                                                "If checked, it will append the build number to the end of the version. This will ensure an ever-increasing and ever-changing Version.");
-            private static readonly GUIContent BuildNumberExpressionLabel = new GUIContent("Build Number Expression*",
-                                                                                           $"Use {BuildNumberPlaceholder} symbol as the build number placeholder. If the expression is not valid, the result will be the Build Number.");
-            private static readonly GUIContent UseBuildStartTimeAsUtcNowLabel = new GUIContent("Use Build Start Time as Utc Now*",
-                                                                                               "If checked, it will override the UTC (Coordinated Universal Time) information with the actual Build Start Time information from the Unity Cloud Build.");
-            private static readonly GUIContent SumBuildNumberToBundleVersionCodeLabel = new GUIContent("Sum Build Number to Bundle Version Code*",
-                                                                                                       "If checked, the Android Bundle Version Code will be a sum of the current Bundle Version Code with the Unity Cloud Build build number. This will ensure an ever-increasing and ever-changing Bundle Version Code.");
+            private static readonly GUIContent AppendBuildNumberToVersionLabel = new("Append Build Number to Version*",
+                                                                                     "If checked, it will append the build number to the end of the version. This will ensure an ever-increasing and ever-changing Version.");
+            private static readonly GUIContent BuildNumberExpressionLabel = new("Build Number Expression*",
+                                                                                $"Use {BuildNumberPlaceholder} symbol as the build number placeholder. If the expression is not valid, the result will be the Build Number.");
+            private static readonly GUIContent UseBuildStartTimeAsUtcNowLabel = new("Use Build Start Time as Utc Now*",
+                                                                                    "If checked, it will override the UTC (Coordinated Universal Time) information with the actual Build Start Time information from the Unity Cloud Build.");
+            private static readonly GUIContent SumBuildNumberToBundleVersionCodeLabel = new("Sum Build Number to Bundle Version Code*",
+                                                                                            "If checked, the Android Bundle Version Code will be a sum of the current Bundle Version Code with the Unity Cloud Build build number. This will ensure an ever-increasing and ever-changing Bundle Version Code.");
 
             internal static bool AppendBuildNumberToVersion => AppendBuildNumberToVersionSetting;
             internal static bool UseBuildStartTimeAsUtcNow => UseBuildStartTimeAsUtcNowSetting;
@@ -125,7 +125,7 @@ namespace Coimbra.BuildManagement.Editor.Global
             [UsedImplicitly] [UserSettingBlock("Cloud Build")]
             private static void DrawCloudBuildsBlock(string searchContext)
             {
-                using (EditorGUI.ChangeCheckScope changeCheckScope = new EditorGUI.ChangeCheckScope())
+                using (EditorGUI.ChangeCheckScope changeCheckScope = new())
                 {
                     AppendBuildNumberToVersionSetting.value = SettingsGUILayout.SettingsToggle(AppendBuildNumberToVersionLabel, AppendBuildNumberToVersionSetting, searchContext);
 
@@ -174,16 +174,16 @@ namespace Coimbra.BuildManagement.Editor.Global
         [NoReorder]
         internal static class LocalBuild
         {
-            [UserSetting] private static readonly GlobalSetting<bool> AllowFallbackToMonoSetting = new GlobalSetting<bool>("LocalBuild.AllowFallbackToMono", true);
-            [UserSetting] private static readonly GlobalSetting<ScriptingBackend> PreferredLinuxScriptingBackendSetting = new GlobalSetting<ScriptingBackend>("LocalBuild.PreferredLinuxScriptingBackend", ScriptingBackend.IL2CPP);
-            [UserSetting] private static readonly GlobalSetting<ScriptingBackend> PreferredMacScriptingBackendSetting = new GlobalSetting<ScriptingBackend>("LocalBuild.PreferredMacScriptingBackend", ScriptingBackend.IL2CPP);
-            [UserSetting] private static readonly GlobalSetting<ScriptingBackend> PreferredWindowsScriptingBackendSetting = new GlobalSetting<ScriptingBackend>("LocalBuild.PreferredWindowsScriptingBackend", ScriptingBackend.IL2CPP);
+            [UserSetting] private static readonly GlobalSetting<bool> AllowFallbackToMonoSetting = new("LocalBuild.AllowFallbackToMono", true);
+            [UserSetting] private static readonly GlobalSetting<ScriptingBackend> PreferredLinuxScriptingBackendSetting = new("LocalBuild.PreferredLinuxScriptingBackend", ScriptingBackend.IL2CPP);
+            [UserSetting] private static readonly GlobalSetting<ScriptingBackend> PreferredMacScriptingBackendSetting = new("LocalBuild.PreferredMacScriptingBackend", ScriptingBackend.IL2CPP);
+            [UserSetting] private static readonly GlobalSetting<ScriptingBackend> PreferredWindowsScriptingBackendSetting = new("LocalBuild.PreferredWindowsScriptingBackend", ScriptingBackend.IL2CPP);
 
-            private static readonly GUIContent AllowFallbackToMonoLabel = new GUIContent("Allow Fallback To Mono*",
-                                                                                         "If IL2PP is the preferred scripting backend and it is not supported for the current selected platform in your machine it will automatically fallback to Mono.");
-            private static readonly GUIContent PreferredLinuxScriptingBackendLabel = new GUIContent("Preferred Linux Scripting Backend");
-            private static readonly GUIContent PreferredMacScriptingBackendLabel = new GUIContent("Preferred Mac Scripting Backend");
-            private static readonly GUIContent PreferredWindowsScriptingBackendLabel = new GUIContent("Preferred Windows Scripting Backend");
+            private static readonly GUIContent AllowFallbackToMonoLabel = new("Allow Fallback To Mono*",
+                                                                              "If IL2PP is the preferred scripting backend and it is not supported for the current selected platform in your machine it will automatically fallback to Mono.");
+            private static readonly GUIContent PreferredLinuxScriptingBackendLabel = new("Preferred Linux Scripting Backend");
+            private static readonly GUIContent PreferredMacScriptingBackendLabel = new("Preferred Mac Scripting Backend");
+            private static readonly GUIContent PreferredWindowsScriptingBackendLabel = new("Preferred Windows Scripting Backend");
 
             internal static bool AllowFallbackToMono => AllowFallbackToMonoSetting;
             internal static ScriptingImplementation PreferredLinuxScriptingBackend => (ScriptingImplementation)PreferredLinuxScriptingBackendSetting.value;
@@ -193,7 +193,7 @@ namespace Coimbra.BuildManagement.Editor.Global
             [UsedImplicitly] [UserSettingBlock("Local Build")]
             private static void DrawLocalBuildsBlock(string searchContext)
             {
-                using (EditorGUI.ChangeCheckScope changeCheckScope = new EditorGUI.ChangeCheckScope())
+                using (EditorGUI.ChangeCheckScope changeCheckScope = new())
                 {
                     AllowFallbackToMonoSetting.value = SettingsGUILayout.SettingsToggle(AllowFallbackToMonoLabel, AllowFallbackToMonoSetting, searchContext);
 

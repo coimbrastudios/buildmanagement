@@ -58,7 +58,7 @@ namespace Coimbra.BuildManagement
                 return null;
             }
 
-            UnityCloudBuildManifest instance = new UnityCloudBuildManifest();
+            UnityCloudBuildManifest instance = new();
             JsonUtility.FromJsonOverwrite(textAsset.text, instance);
 
             return instance;

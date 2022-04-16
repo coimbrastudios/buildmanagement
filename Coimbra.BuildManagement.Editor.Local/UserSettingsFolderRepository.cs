@@ -10,7 +10,7 @@ namespace UnityEditor.SettingsManagement
     {
         [SerializeField] private string _name;
         [SerializeField] private string _path;
-        [SerializeField] private SettingsDictionary _dictionary = new SettingsDictionary();
+        [SerializeField] private SettingsDictionary _dictionary = new();
 
         private const bool PrettyPrintJson = true;
         private const string SettingsDirectory = "UserSettings/Packages";
